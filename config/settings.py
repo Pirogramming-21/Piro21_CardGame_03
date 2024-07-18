@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "apps.games",
     "apps.users",
-    "apps.rank"
+    "apps.rank",
 ]
 
 AUTH_USER_MODEL = 'users.User'
