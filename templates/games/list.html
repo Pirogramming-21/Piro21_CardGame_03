@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Game List{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/games/list.css' %}">
+
+<div class="game-history-container">
+    <h1>History List</h1>
+    <h2>현재 플레이어: {{ request.user.nickname }}</h2>
+
+    <div class="game-list">
+        {% for game in games_as_player1|dictsortreversed:"created_at" %}
+            <div class="game-item">
+                <div class="players">
+                    {{ game.player1.nickname }} VS {{ game.player2.nickname }}
+                </div>
+                <div class="status">
+                    {% if game.status == 'COMPLETED' %}
+                        {% if game.result == 'WIN' %}
+                            승리
+                        {% elif game.result == 'LOSE' %}
+                            패배
+                        {% else %}
+                            무승부
+                        {% endif %}
+                    {% else %}
+                        진행중
+                    {% endif %}
+                </div>
+                <div class="actions">
+                    <a href="#" class="btn btn-info">게임정보</a>
+                    {% if game.status == 'PENDING' %}
+                        <a href="#" class="btn btn-danger">취소</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+
+        {% for game in games_as_player2|dictsortreversed:"created_at" %}
+            <div class="game-item">
+                <div class="players">
+                    {{ game.player1.nickname }} VS {{ game.player2.nickname }}
+                </div>
+                <div class="status">
+                    {% if game.status == 'COMPLETED' %}
+                        {% if game.result == 'LOSE' %}
+                            승리
+                        {% elif game.result == 'WIN' %}
+                            패배
+                        {% else %}
+                            무승부
+                        {% endif %}
+                    {% elif game.status == 'PENDING' %}
+                        반격 필요
+                    {% endif %}
+                </div>
+                <div class="actions">
+                    <a href="#" class="btn btn-info">게임정보</a>
+                    {% if game.status == 'PENDING' %}
+                        <a href="{% url 'games:counter_attack' game.pk %}" class="btn btn-primary">반격하기</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
