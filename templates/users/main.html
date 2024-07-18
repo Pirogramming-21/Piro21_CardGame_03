@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Piro Game{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <h1>Piro Game</h1>
+    {% if user.is_authenticated %}
+        <button class="start-button">start</button>
+        <button class="start-button">list</button>
+    {% else %}
+        <button class="start-button" onclick="checkbtn(false)">start</button>
+    {% endif %}
+</div>
+<script>
+    function checkbtn(isAuthenticated) {
+        if (!isAuthenticated) {
+            alert('로그인해주세요.');
+        }
+    }
+</script>
+{% endblock %}
