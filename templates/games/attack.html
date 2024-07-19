@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Attack{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/games/attack.css' %}">
+
+<div class="game-container">
+    <h1>카드를 뽑아 승부를 가릅니다!</h1>
+    <h2>운명의 상대를 선택하세요!</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.opponent }}
+        <h2>이제 당신의 운명의 카드를 선택하세요!</h2>
+        <div class="card-container">
+            {% for num in random_numbers %}
+                <div class="card" onclick="selectCard(this, '{{ num }}')">{{ num }}</div>
+            {% endfor %}
+        </div>
+        {{ form.player1_card }}
+        <button type="submit">Attack!</button>
+    </form>
+</div>
+
+<script>
+function selectCard(element, value) {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => card.classList.remove('selected'));
+    element.classList.add('selected');
+    document.getElementById('id_player1_card').value = value;
+}
+</script>
+{% endblock %}
