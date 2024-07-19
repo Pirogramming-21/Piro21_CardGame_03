@@ -1,7 +1,6 @@
 # Piro21_CardGame_03
-
-**07/18 1차 zep회의**
-1. 협업 툴 'notion' 사용
-2. 연진 > 사용자(로그인) / 민수,관우 > 게임 / 유민 > 랭킹(점수관리)
-
-pip install -r requirements.txt
+ <br> 
+ 
+* ### 협업툴 링크
+> 💙[Notion](https://www.notion.so/3202ac4605684639819aa19f3a70eb2d?v=1bc40a988c0c452e9e02cb6c81b759ff&pvs=4) <br>
+> 💙[Figma](https://www.figma.com/design/lVoYGKobfu8DnyAfgWBMQS/Piro03_CardGame?node-id=0-1&t=h4xHCriz9EKDDxZo-0) <br>
