@@ -1,0 +1,134 @@
+body {
+    margin: 0;
+    font-family: "Jua", sans-serif;
+    background: linear-gradient(to right, #FFBB36, #F8CC5C);
+    color: #2f4f2f;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFBB36;
+    padding: 10px 20px;
+    color: white;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+.nav-links a:hover {
+    color: #EB5B00;
+}
+
+main {
+    display: flex;
+    background-image: url("../../image/card.png");
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center; 
+    padding-top: 65px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.main-content {
+    text-align: center;
+    margin-top: -100px;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 10%;
+    box-shadow: 5px 5px 20px #909194;
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.start-button {
+    font-size: 1.5em;
+    padding: 10px 20px;
+    background-color: #EB5B00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.start-button:hover {
+    background-color: #9b3e05;
+}
+
+.form-container {
+    background-color: rgba(255, 167, 35);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+    margin-top: -100px;
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.form-button {
+    font-size: 1em;
+    padding: 10px;
+    background-color: #EB5B00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-button:hover {
+    background-color: #9b3e05;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #45474B;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+
