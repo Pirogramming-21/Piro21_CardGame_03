@@ -1,24 +1,29 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
-
-
+{% block title %}Ranking{% endblock %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/users/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/rank/ranking.css' %}">
+</head>
 <body>
 {% block content %}
     <table>
-        <thead>
-            <tr>
-                <th>Rank</th>
-                <th>Username</th>
-                <th>Score</th>
-            </tr>
-        </thead>
+        <div class="ranking">
+            <div>
+                <p>Rank</p>
+                <p>Username</p>
+                <p>Score</p>
+            </div>
+        </div>
         <tbody>
             {% for user in users %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ user.username }}</td>
+                    <td>{{ user.user.username }}</td>
                     <td>{{ user.score }}</td>
                 </tr>
             {% endfor %}

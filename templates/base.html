@@ -18,13 +18,9 @@
             </a>
             {% if user.is_authenticated %}
                 <div class="nav-links">
-                    <a href="{% url 'users:logout' %}">게임시작</a>
-                    <a href="{% url 'rank:ranking' %}">랭킹보기</a>
-                </div>
-                <div class="nav-links">
                     <span>{{ user.nickname }}님이 로그인 중</span>
                     <a href="{% url 'games:attack' %}">게임하기</a>
-                    <a href="/">랭킹보기</a>
+                    <a href="{% url 'rank:ranking' %}">랭킹보기</a>
                     <a href="{% url 'users:logout' %}">로그아웃</a>
                 </div>
             {% else %}
