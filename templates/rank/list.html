@@ -1,33 +1,75 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Ranking{% endblock %}
+{% block title %}Pirogrammer Card Game{% endblock %}
 <head>
     <link rel="stylesheet" href="{% static 'css/users/styles.css' %}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'css/rank/ranking.css' %}">
 </head>
 <body>
 {% block content %}
-    <table>
-        <div class="ranking">
-            <div>
-                <p>Rank</p>
-                <p>Username</p>
-                <p>Score</p>
-            </div>
+<div class="ranking-container">
+    <div class="top-ranking">
+    <h2>Top 3</h2>
+    <div class="podium">
+        <div class="podium-step podium-2">
+            {% if top_users|length > 1 %}
+                <div class="podium-rank">2</div>
+                <div class="podium-name">{{ top_users.1.user.username }}</div>
+                <div class="podium-score">{{ top_users.1.score }}</div>
+            {% else %}
+                <div class="podium-rank">2</div>
+                <div class="podium-name"></div>
+                <div class="podium-score">0</div>
+            {% endif %}
         </div>
-        <tbody>
-            {% for user in users %}
+        <div class="podium-step podium-1">
+            {% if top_users|length > 0 %}
+                <div class="podium-rank">1</div>
+                <div class="podium-name">{{ top_users.0.user.username }}</div>
+                <div class="podium-score">{{ top_users.0.score }}</div>
+            {% else %}
+                <div class="podium-rank">1</div>
+                <div class="podium-name"></div>
+                <div class="podium-score">0</div>
+            {% endif %}
+        </div>
+        <div class="podium-step podium-3">
+            {% if top_users|length > 2 %}
+                <div class="podium-rank">3</div>
+                <div class="podium-name">{{ top_users.2.user.username }}</div>
+                <div class="podium-score">{{ top_users.2.score }}</div>
+            {% else %}
+                <div class="podium-rank">3</div>
+                <div class="podium-name"></div>
+                <div class="podium-score">0</div>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <!-- 전체 랭킹 -->
+    <div class="full-ranking">
+        <h2>전체 랭킹</h2>
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ forloop.counter }}</td>
-                    <td>{{ user.user.username }}</td>
-                    <td>{{ user.score }}</td>
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>Score</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for user in all_users %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ user.user.username }}</td>
+                        <td>{{ user.score }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div>
 {% endblock %}
 </body>

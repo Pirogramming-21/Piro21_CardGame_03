@@ -5,10 +5,13 @@ from django.contrib.auth import get_user_model
 
 # Create your views here.
 def ranking(request):
-    users = Rank.objects.order_by('-score')
-    if len(users) > 3:
-        users = users[:3]  
-    else:
-        users = users  
-    ctx = {'users':users}
+    all_users = Rank.objects.order_by('-score')
+    
+    top_users = all_users[:3]
+    
+    ctx = {
+        'top_users': top_users,
+        'all_users': all_users
+    }
+    
     return render(request, 'rank/list.html', ctx)

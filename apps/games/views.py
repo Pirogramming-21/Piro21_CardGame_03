@@ -37,19 +37,19 @@ def counter_attack(request, pk):
         player2_card = request.POST.get('player2_card')
 
         if player2_card is None or player2_card == '':
-            return redirect('games:list')  # 카드가 선택되지 않았을 때 처리
+            return redirect('games:list')  
 
         try:
             player2_card = int(player2_card)
         except ValueError:
-            return redirect('games:list')  # 카드 값이 유효하지 않을 때 처리
+            return redirect('games:list')  
 
         game.player2_card = player2_card
         game.status = 'COMPLETED'
 
         player1_card = game.player1_card
 
-        # 승리, 패배, 무승부 결정 및 점수 업데이트
+
         if game.win_condition == 'HIGHER':
             if player1_card > player2_card:
                 game.result = 'WIN'
