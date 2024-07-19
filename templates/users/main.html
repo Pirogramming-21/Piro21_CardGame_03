@@ -6,6 +6,7 @@
 <div class="main-content">
     <h1>Piro Game</h1>
     {% if user.is_authenticated %}
+        <p>Welcome, {{ user.nickname|default:user.username }} 님!</p>
         <button class="start-button" onclick="location.href='{% url 'games:attack' %}'">start</button>
         <button class="start-button" onclick="location.href='{% url 'games:list' %}'">list</button>
     {% else %}

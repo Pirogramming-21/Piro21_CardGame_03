@@ -39,8 +39,51 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "apps.games",
     "apps.users",
-    "apps.rank",
+    'django.contrib.sites',  # 이 부분을 추가하세요
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.naver',  # 이 부분을 추가하세요
 ]
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
+SOCIALACCOUNT_QUERY_EMAIL = True
+SOCIALACCOUNT_EMAIL_VERIFICATION = 'none'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'naver': {
+        'APP': {
+            'client_id': 'TFUBYph6ckV1qTuiFPVP',
+            'secret': 'yA5HealBpm',
+            'key': ''
+        },
+        'SCOPE': [
+            'name',
+            'nickname',
+            'email',
+        ],
+        'PROFILE_FIELDS': [
+            'id',
+            'name',
+            'nickname',
+            'email',
+        ],
+    }
+}
 
 AUTH_USER_MODEL = 'users.User'
 
@@ -50,8 +93,14 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "allauth.account.middleware.AccountMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:8000',
+    'http://localhost:8000',
 ]
 
 ROOT_URLCONF = "config.urls"
