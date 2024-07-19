@@ -103,6 +103,11 @@ body {
     color: #e74c3c;
     margin-bottom: 10px;
 }
+.score {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: black;
+}
 .win-condition {
     color: #34495e;
     margin-bottom: 20px;

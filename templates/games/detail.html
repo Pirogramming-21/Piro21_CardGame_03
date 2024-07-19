@@ -33,6 +33,7 @@
     {% if game.status == 'COMPLETED' %}
         <h2 class="section-title">🏆 게임 결과</h2>
         <p class="result">{{ game.result }}</p>
+        <p class="score">{{ game.player1_card }} : {{ game.player2_card }}</p>
         <p class="win-condition">승리 조건: {{ game.get_win_condition_display }}</p>
     {% endif %}
 
