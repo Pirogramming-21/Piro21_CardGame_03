@@ -7,19 +7,31 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/games/counter_attack.css' %}">
 
 <div class="game-container">
-    <h1>반격하기</h1>
-    <h2>반격할 수 있는 카드</h2>
-    <h2>나를 공격한 상대</h2>
-    {{ game.player1.username }} 
+    <h1 class="game-title">🗡️ 운명의 반격 시간 🛡️</h1>
+    <p class="game-subtitle">당신의 반격이 승부를 뒤집을 수 있습니다!</p>
+
+    <div class="opponent-info">
+        <h2 class="section-title">🎭 도전자</h2>
+        <p class="opponent-name">{{ game.player1.nickname }}</p>
+        <p class="opponent-message">"과연 나의 도전을 막아낼 수 있을까?"</p>
+    </div>
+
     <form method="post">
         {% csrf_token %}
-        <div class="card-container">
-            {% for num in random_numbers %}
-                <div class="card" onclick="selectCard(this, '{{ num }}')">{{ num }}</div>
-            {% endfor %}
+        <div class="card-selection">
+            <h2 class="section-title">✨ 당신의 반격 카드를 선택하세요</h2>
+            <p class="card-instruction">이 한 장으로 승부를 뒤집을 수 있습니다. 신중히 고르세요!</p>
+            <div class="card-container">
+                {% for num in random_numbers %}
+                <div class="card" onclick="selectCard(this, '{{ num }}')">
+                    {{ num }}
+                </div>
+                {% endfor %}
+            </div>
+            <input type="hidden" name="player2_card" id="id_player2_card">
         </div>
-        <input type="hidden" name="player2_card" id="player2_card">  
-        <button type="submit">CounterAttack!</button>
+
+        <button type="submit" class="action-button">운명의 반격!</button>
     </form>
 </div>
 

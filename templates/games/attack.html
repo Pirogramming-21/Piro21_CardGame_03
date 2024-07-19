@@ -7,19 +7,30 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/games/attack.css' %}">
 
 <div class="game-container">
-    <h1>카드를 뽑아 승부를 가릅니다!</h1>
-    <h2>운명의 상대를 선택하세요!</h2>
+    <h1 class="game-title">🃏 운명의 카드 대결 🃏</h1>
+    <p class="game-subtitle">당신의 손끝에서 운명이 결정됩니다!</p>
+
     <form method="post">
         {% csrf_token %}
-        {{ form.opponent }}
-        <h2>이제 당신의 운명의 카드를 선택하세요!</h2>
-        <div class="card-container">
-            {% for num in random_numbers %}
-                <div class="card" onclick="selectCard(this, '{{ num }}')">{{ num }}</div>
-            {% endfor %}
+        <div class="opponent-selection">
+            <h2 class="section-title">🎭 운명의 상대를 선택하세요</h2>
+            {{ form.opponent }}
         </div>
-        {{ form.player1_card }}
-        <button type="submit">Attack!</button>
+
+        <div class="card-selection">
+            <h2 class="section-title">✨ 당신의 운명의 카드를 고르세요</h2>
+            <p class="card-instruction">신중히 선택하세요. 이 카드가 당신의 운명을 좌우할 것입니다.</p>
+            <div class="card-container">
+                {% for num in random_numbers %}
+                <div class="card" onclick="selectCard(this, '{{ num }}')">
+                    {{ num }}
+                </div>
+                {% endfor %}
+            </div>
+            {{ form.player1_card }}
+        </div>
+
+        <button type="submit" class="action-button">도전장 내밀기!</button>
     </form>
 </div>
 

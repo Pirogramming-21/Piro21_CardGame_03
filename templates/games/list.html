@@ -5,14 +5,17 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/games/list.css' %}">
-
 <div class="game-history-container">
     <h1>History List</h1>
     <h2>현재 플레이어: {{ request.user.nickname }}</h2>
 
     <div class="game-list">
         {% for game in games_as_player1 %}
-            <div class="game-item">
+            <div class="game-item {% if game.status == 'COMPLETED' %}
+                                    {% if game.result == 'WIN' %}win
+                                    {% elif game.result == 'LOSE' %}lose
+                                    {% else %}draw{% endif %}
+                                    {% else %}pending{% endif %}">
                 <div class="players">
                     {{ game.player1.nickname }} VS {{ game.player2.nickname }}
                 </div>
@@ -34,22 +37,26 @@
                     {% endif %}
                 </div>
                 <div class="actions">
-                    <div class="action-buttons">
-                        {% if game.status == 'PENDING' %}
-                            {% if game.player1 == request.user %}
-                                <a href="{% url 'games:cancel' game.pk %}" class="btn btn-danger">작전 변경 (취소)</a>
-                            {% elif game.player2 == request.user %}
-                                <a href="{% url 'games:counter_attack' game.pk %}" class="btn btn-primary">반격 시작!</a>
-                            {% endif %}
+                    {% if game.status == 'PENDING' %}
+                        {% if game.player1 == request.user %}
+                            <a href="{% url 'games:cancel' game.pk %}" class="btn">일보 후퇴!</a>
+                        {% elif game.player2 == request.user %}
+                            <a href="{% url 'games:counter_attack' game.pk %}" class="btn">반격 시작!</a>
                         {% endif %}
-                    </div>
-                    <a href="#" class="btn btn-info">게임 정보 보기</a>
+                    {% endif %}
+                </div>
+                <div class="game-info">
+                    <a href="#" class="btn">게임 정보</a>
                 </div>
             </div>
         {% endfor %}
 
         {% for game in games_as_player2 %}
-            <div class="game-item">
+            <div class="game-item {% if game.status == 'COMPLETED' %}
+                                    {% if game.result == 'WIN' %}win
+                                    {% elif game.result == 'LOSE' %}lose
+                                    {% else %}draw{% endif %}
+                                    {% else %}pending{% endif %}">
                 <div class="players">
                     {{ game.player1.nickname }} VS {{ game.player2.nickname }}
                 </div>
@@ -71,16 +78,16 @@
                     {% endif %}
                 </div>
                 <div class="actions">
-                    <div class="action-buttons">
-                        {% if game.status == 'PENDING' %}
-                            {% if game.player1 == request.user %}
-                                <a href="{% url 'games:cancel' game.pk %}" class="btn btn-danger">작전 변경 (취소)</a>
-                            {% elif game.player2 == request.user %}
-                                <a href="{% url 'games:counter_attack' game.pk %}" class="btn btn-primary">반격 시작!</a>
-                            {% endif %}
+                    {% if game.status == 'PENDING' %}
+                        {% if game.player1 == request.user %}
+                            <a href="{% url 'games:cancel' game.pk %}" class="btn">일보 후퇴!</a>
+                        {% elif game.player2 == request.user %}
+                            <a href="{% url 'games:counter_attack' game.pk %}" class="btn">반격 시작!</a>
                         {% endif %}
-                    </div>
-                    <a href="#" class="btn btn-info">게임 정보 보기</a>
+                    {% endif %}
+                </div>
+                <div class="game-info">
+                    <a href="#" class="btn">게임 정보</a>
                 </div>
             </div>
         {% endfor %}
