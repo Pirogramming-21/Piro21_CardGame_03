@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import GameForm
 from .models import Game
-from apps.rank.models import Rank
 import random
 
 @login_required
@@ -35,54 +34,32 @@ def counter_attack(request, pk):
     game = get_object_or_404(Game, pk=pk)
     if request.method == 'POST':
         player2_card = request.POST.get('player2_card')
+        if player2_card is not None:
+            game.player2_card = int(player2_card)
+            game.status = 'COMPLETED'
 
-        if player2_card is None or player2_card == '':
-            return redirect('games:list')  
-
-        try:
-            player2_card = int(player2_card)
-        except ValueError:
-            return redirect('games:list')  
-
-        game.player2_card = player2_card
-        game.status = 'COMPLETED'
-
-        player1_card = game.player1_card
-
-
-        if game.win_condition == 'HIGHER':
-            if player1_card > player2_card:
-                game.result = 'WIN'
-                update_score(game.player1, player1_card)
-                update_score(game.player2, -player1_card)
-            elif player1_card < player2_card:
-                game.result = 'LOSE'
-                update_score(game.player1, -player2_card)
-                update_score(game.player2, player2_card)
-            else:
-                game.result = 'DRAW'
-        else:  # LOWER
-            if player1_card < player2_card:
-                game.result = 'WIN'
-                update_score(game.player1, player1_card)
-                update_score(game.player2, -player2_card)
-            elif player1_card > player2_card:
-                game.result = 'LOSE'
-                update_score(game.player1, -player1_card)
-                update_score(game.player2, player2_card)
-            else:
-                game.result = 'DRAW'
-
-        game.save()
-        return redirect('games:list')
+            if game.win_condition == 'HIGHER':
+                if game.player1_card > game.player2_card:
+                    game.result = 'WIN'
+                elif game.player1_card < game.player2_card:
+                    game.result = 'LOSE'
+                else:
+                    game.result = 'DRAW'
+            else:  # LOWER
+                if game.player1_card < game.player2_card:
+                    game.result = 'WIN'
+                elif game.player1_card > game.player2_card:
+                    game.result = 'LOSE'
+                else:
+                    game.result = 'DRAW'
+            
+            game.save()
+            return redirect('games:list')
+        else:
+            return redirect('games:counter_attack', pk=pk)
 
     random_numbers = random.sample(range(1, 11), 5)
     return render(request, 'games/counter_attack.html', {'game': game, 'random_numbers': random_numbers})
-
-def update_score(user, points):
-    rank, created = Rank.objects.get_or_create(user=user)
-    rank.score += points
-    rank.save()
 
 @login_required
 def game_cancel(request, pk):
@@ -91,3 +68,8 @@ def game_cancel(request, pk):
         game.delete()
     return redirect('games:list')
 
+@login_required
+def game_detail(request, pk):
+    game = get_object_or_404(Game, pk=pk)
+    game_index = Game.objects.filter(created_at__lt=game.created_at).count() + 1  # 게임의 순서 계산
+    return render(request, 'games/detail.html', {'game': game, 'game_index': game_index})
