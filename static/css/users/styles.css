@@ -131,4 +131,18 @@ footer {
     width: 100%;
 }
 
+.naver-login-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #03C75A;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1em;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
 
+.naver-login-button:hover {
+    background-color: #02a64b;
+}

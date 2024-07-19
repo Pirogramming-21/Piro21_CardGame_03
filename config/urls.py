@@ -22,4 +22,5 @@ urlpatterns = [
     path("",include("apps.users.urls")),
     path("games/", include("apps.games.urls")),
     path("rank/", include("apps.rank.urls")),
+    path('accounts/', include('allauth.urls')),
 ]
