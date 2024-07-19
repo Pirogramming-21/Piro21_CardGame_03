@@ -15,7 +15,7 @@
         <div class="podium-step podium-2">
             {% if top_users|length > 1 %}
                 <div class="podium-rank">2</div>
-                <div class="podium-name">{{ top_users.1.user.username }}</div>
+                <div class="podium-name">{{ top_users.1.user.nickname }}</div>
                 <div class="podium-score">{{ top_users.1.score }}</div>
             {% else %}
                 <div class="podium-rank">2</div>
@@ -26,7 +26,7 @@
         <div class="podium-step podium-1">
             {% if top_users|length > 0 %}
                 <div class="podium-rank">1</div>
-                <div class="podium-name">{{ top_users.0.user.username }}</div>
+                <div class="podium-name">{{ top_users.0.user.nickname }}</div>
                 <div class="podium-score">{{ top_users.0.score }}</div>
             {% else %}
                 <div class="podium-rank">1</div>
@@ -37,7 +37,7 @@
         <div class="podium-step podium-3">
             {% if top_users|length > 2 %}
                 <div class="podium-rank">3</div>
-                <div class="podium-name">{{ top_users.2.user.username }}</div>
+                <div class="podium-name">{{ top_users.2.user.nickname }}</div>
                 <div class="podium-score">{{ top_users.2.score }}</div>
             {% else %}
                 <div class="podium-rank">3</div>
@@ -55,7 +55,7 @@
             <thead>
                 <tr>
                     <th>Rank</th>
-                    <th>Username</th>
+                    <th>Nickname</th>
                     <th>Score</th>
                 </tr>
             </thead>
@@ -63,7 +63,7 @@
                 {% for user in all_users %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
-                        <td>{{ user.user.username }}</td>
+                        <td>{{ user.user.nickname }}</td>
                         <td>{{ user.score }}</td>
                     </tr>
                 {% endfor %}

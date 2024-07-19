@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import GameForm
 from .models import Game
+from apps.rank.models import Rank
 import random
 
 @login_required
@@ -38,18 +39,36 @@ def counter_attack(request, pk):
             game.player2_card = int(player2_card)
             game.status = 'COMPLETED'
 
+            try:
+                player2_card = int(player2_card)
+            except ValueError:
+                return redirect('games:list')
+            
+            game.player2_card = player2_card
+            game.status = 'COMPLETED'
+
+            player1_card = game.player1_card
+            
             if game.win_condition == 'HIGHER':
                 if game.player1_card > game.player2_card:
                     game.result = 'WIN'
+                    update_score(game.player1, player1_card)
+                    update_score(game.player2, -player1_card)
                 elif game.player1_card < game.player2_card:
                     game.result = 'LOSE'
+                    update_score(game.player1, -player2_card)
+                    update_score(game.player2, player2_card)
                 else:
                     game.result = 'DRAW'
             else:  # LOWER
                 if game.player1_card < game.player2_card:
                     game.result = 'WIN'
+                    update_score(game.player1, player1_card)
+                    update_score(game.player2, -player2_card)
                 elif game.player1_card > game.player2_card:
                     game.result = 'LOSE'
+                    update_score(game.player1, -player1_card)
+                    update_score(game.player2, player2_card)
                 else:
                     game.result = 'DRAW'
             
@@ -73,3 +92,8 @@ def game_detail(request, pk):
     game = get_object_or_404(Game, pk=pk)
     game_index = Game.objects.filter(created_at__lt=game.created_at).count() + 1  # 게임의 순서 계산
     return render(request, 'games/detail.html', {'game': game, 'game_index': game_index})
+
+def update_score(user, points):
+    rank, created = Rank.objects.get_or_create(user=user)
+    rank.score += points
+    rank.save()
