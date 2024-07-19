@@ -12,7 +12,7 @@ class GameForm(forms.ModelForm):
         random_numbers = kwargs.pop('random_numbers', [])
         super().__init__(*args, **kwargs)
         if self.request:
-            self.fields['opponent'].queryset = User.objects.exclude(id=self.request.user.id)
+            self.fields['opponent'].queryset = User.objects.filter(is_superuser=False).exclude(id=self.request.user.id)
         if random_numbers:
             self.fields['player1_card'].choices = [(num, num) for num in random_numbers]
 

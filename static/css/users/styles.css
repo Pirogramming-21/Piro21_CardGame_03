@@ -1,7 +1,7 @@
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #e6ffe6;
+    font-family: "Jua", sans-serif;
+    background: linear-gradient(to right, #FFBB36, #F8CC5C);
     color: #2f4f2f;
 }
 
@@ -9,7 +9,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #2f4f2f;
+    background-color: #FFBB36;
     padding: 10px 20px;
     color: white;
 }
@@ -31,16 +31,16 @@ body {
 }
 
 .nav-links a:hover {
-    text-decoration: underline;
+    color: #EB5B00;
 }
 
 main {
     display: flex;
-    background-image: url("../../image/main.png");
+    background-image: url("../../image/card.png");
     background-size: cover; 
     background-repeat: no-repeat;
     background-position: center; 
-    padding-top: 100px;
+    padding-top: 65px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -50,6 +50,9 @@ main {
 .main-content {
     text-align: center;
     margin-top: -100px;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 30%;
 }
 
 h1 {
@@ -60,19 +63,20 @@ h1 {
 .start-button {
     font-size: 1.5em;
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #EB5B00;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .start-button:hover {
-    background-color: #45a049;
+    background-color: #9b3e05;
 }
 
 .form-container {
-    background-color: #ccffcc;
+    background-color: rgba(255, 167, 35);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -104,21 +108,22 @@ h1 {
 .form-button {
     font-size: 1em;
     padding: 10px;
-    background-color: #4CAF50;
+    background-color: #EB5B00;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .form-button:hover {
-    background-color: #45a049;
+    background-color: #9b3e05;
 }
 
 footer {
     text-align: center;
     padding: 10px 0;
-    background-color: #2f4f2f;
+    background-color: #45474B;
     color: white;
     position: fixed;
     bottom: 0;

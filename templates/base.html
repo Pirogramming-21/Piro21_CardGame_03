@@ -6,6 +6,9 @@
     <title>{% block title %}Pirogrammer Card Game{% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/users/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -16,6 +19,8 @@
             {% if user.is_authenticated %}
                 <div class="nav-links">
                     <span>{{ user.nickname }}님이 로그인 중</span>
+                    <a href="{% url 'games:attack' %}">게임하기</a>
+                    <a href="/">랭킹보기</a>
                     <a href="{% url 'users:logout' %}">로그아웃</a>
                 </div>
             {% else %}
