@@ -65,10 +65,10 @@ def counter_attack(request, pk):
             if player1_card < player2_card:
                 game.result = 'WIN'
                 update_score(game.player1, player1_card)
-                update_score(game.player2, -player1_card)
+                update_score(game.player2, -player2_card)
             elif player1_card > player2_card:
                 game.result = 'LOSE'
-                update_score(game.player1, -player2_card)
+                update_score(game.player1, -player1_card)
                 update_score(game.player2, player2_card)
             else:
                 game.result = 'DRAW'
