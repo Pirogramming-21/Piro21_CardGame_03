@@ -11,7 +11,7 @@
     <h2>현재 플레이어: {{ request.user.nickname }}</h2>
 
     <div class="game-list">
-        {% for game in games_as_player1|dictsortreversed:"created_at" %}
+        {% for game in games_as_player1 %}
             <div class="game-item">
                 <div class="players">
                     {{ game.player1.nickname }} VS {{ game.player2.nickname }}
@@ -31,14 +31,14 @@
                 </div>
                 <div class="actions">
                     <a href="#" class="btn btn-info">게임정보</a>
-                    {% if game.status == 'PENDING' %}
-                        <a href="#" class="btn btn-danger">취소</a>
+                    {% if game.status == 'PENDING' and game.player1 == request.user %}
+                        <a href="{% url 'games:cancel' game.pk %}" class="btn btn-danger">취소</a> <!-- URL 이름 수정 -->
                     {% endif %}
                 </div>
             </div>
         {% endfor %}
 
-        {% for game in games_as_player2|dictsortreversed:"created_at" %}
+        {% for game in games_as_player2 %}
             <div class="game-item">
                 <div class="players">
                     {{ game.player1.nickname }} VS {{ game.player2.nickname }}
@@ -58,7 +58,7 @@
                 </div>
                 <div class="actions">
                     <a href="#" class="btn btn-info">게임정보</a>
-                    {% if game.status == 'PENDING' %}
+                    {% if game.status == 'PENDING' and game.player2 == request.user %}
                         <a href="{% url 'games:counter_attack' game.pk %}" class="btn btn-primary">반격하기</a>
                     {% endif %}
                 </div>

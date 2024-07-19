@@ -5,6 +5,7 @@ import random
 
 class GameForm(forms.ModelForm):
     opponent = forms.ModelChoiceField(queryset=User.objects.all(), label="상대 유저 선택")
+    player1_card = forms.IntegerField(widget=forms.HiddenInput())
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)

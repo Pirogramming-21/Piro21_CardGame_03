@@ -9,6 +9,7 @@
 <div class="game-container">
     <h1>반격하기</h1>
     <h2>반격할 수 있는 카드</h2>
+    {{ game.player2.nickname }}
     <form method="post">
         {% csrf_token %}
         <div class="card-container">
