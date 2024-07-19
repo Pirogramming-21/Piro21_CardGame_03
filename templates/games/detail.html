@@ -1,81 +1,51 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Game Detail{% endblock %}
+{% block title %}Pirogrammer Card Game{% endblock %}
 
 {% block content %}
-<style>
-    .game-detail-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        
-    }
-    .game-detail-box {
-        background-color: rgba(255, 167, 35); /* 배경색 변경 */
-        border-radius: 10px; /* 모서리 둥글게 */
-        padding: 20px; /* 내부 여백 추가 */
-        width: auto; /* 너비 자동 조정 */
-        max-width: 90%; /* 최대 너비 제한 */
-        margin: 0 auto;
-        text-align: center;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 박스 그림자 추가 */
-        color: #333; /* 텍스트 색상 */
-        box-shadow: 5px 5px 20px grey;
-    }
-    .game-detail-box h1 {
-        color: #333; /* 제목 색상 */
-        font-size: 1.5em; /* 제목 글자 크기 */
-        margin-bottom: 20px; /* 제목 아래 여백 */
-    }
-    .game-detail-box h2 {
-        color: #666; /* 부제목 색상 */
-        margin-bottom: 15px; /* 부제목 아래 여백 */
-    }
-    .game-detail-box p {
-        margin: 10px 0; /* 문단 여백 */
-        font-size: 1.2em; /* 글자 크기 */
-    }
-    .game-detail-box .btn {
-        background-color: #EB5B00; /* 버튼 배경색 */
-        border: none; /* 버튼 테두리 제거 */
-        color: white; /* 버튼 텍스트 색상 */
-        padding: 15px 32px; /* 버튼 여백 */
-        text-align: center; /* 텍스트 중앙 정렬 */
-        text-decoration: none; /* 텍스트 장식 제거 */
-        display: inline-block; /* 인라인 블록 */
-        font-size: 16px; /* 글자 크기 */
-        margin: 4px 2px; /* 버튼 간격 */
-        cursor: pointer; /* 커서 변경 */
-        border-radius: 5px; /* 버튼 모서리 둥글게 */
-        transition: background-color 0.3s; /* 배경색 전환 */
-    }
-    .game-detail-box .btn:hover {
-        background-color: #9b3e05; /* 버튼 호버 색상 */
-    }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/games/detail.css' %}">
 
-<div class="game-detail-container">
-    <div class="game-detail-box">
-        <h1>{{ game_index }} - {{ game.player1.nickname }} VS {{ game.player2.nickname }}</h1>
-        {% if game.status == 'PENDING' %}
-            <h2>진행중...</h2>
-            {% if game.player1 == request.user %}
-                <p>나: {{ game.player1_card }}</p>
-            {% elif game.player2 == request.user %}
-                <p>나: {{ game.player2_card }}</p>
-            {% endif %}
+<div class="game-container">
+    <h1 class="game-title">🃏 운명의 카드 대결 #{{ game_index }} 🃏</h1>
+    <p class="game-subtitle">{{ game.player1.nickname }} VS {{ game.player2.nickname }}</p>
+
+    {% if game.status == 'PENDING' %}
+        <h2 class="section-title">🎭 게임 진행 중...</h2>
+        
+        {% if game.player1 == request.user or game.player2 == request.user %}
+            <p class="card-instruction">당신의 선택한 카드:</p>
+            <div class="card-container">
+                <div class="card selected">
+                    {% if game.player1 == request.user %}
+                        {{ game.player1_card }}
+                    {% else %}
+                        {{ game.player2_card }}
+                    {% endif %}
+                </div>
+            </div>
         {% endif %}
-        {% if game.status == 'COMPLETED' %}
-            <p>결과: {{ game.result }}</p>
-            <p>승리 조건: {{ game.get_win_condition_display }}</p>
-        {% endif %}
-        <p>생성일: {{ game.created_at }}</p>
+        
+        <p class="opponent-message">상대방의 선택을 기다리고 있습니다...</p>
+    {% endif %}
+
+    {% if game.status == 'COMPLETED' %}
+        <h2 class="section-title">🏆 게임 결과</h2>
+        <p class="result">{{ game.result }}</p>
+        <p class="win-condition">승리 조건: {{ game.get_win_condition_display }}</p>
+    {% endif %}
+
+    <p class="game-info">생성일: {{ game.created_at }}</p>
+
+    <div class="action-buttons">
         {% if game.status == 'PENDING' and game.player1 == request.user %}
-            <a href="{% url 'games:cancel' game.pk %}" class="btn btn-danger">게임취소</a>
+            <form action="{% url 'games:cancel' game.pk %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="action-button btn-danger">게임 취소</button>
+            </form>
         {% endif %}
-        <a href="{% url 'games:list' %}" class="btn btn-secondary">전적목록</a>
+        <a href="{% url 'games:list' %}" class="action-button btn-secondary">전적 목록</a>
     </div>
 </div>
 {% endblock %}
