@@ -4,5 +4,5 @@ from . import views
 app_name = "rank"
 
 urlpatterns = [
-    path("", views.ranking, name = "ranking"),
+    path("list/", views.ranking, name = "ranking"),
 ]

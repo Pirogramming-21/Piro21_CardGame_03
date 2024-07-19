@@ -8,6 +8,7 @@
     {% if user.is_authenticated %}
         <button class="start-button" onclick="location.href='{% url 'games:attack' %}'">start</button>
         <button class="start-button" onclick="location.href='{% url 'games:list' %}'">list</button>
+        <button class="start-button" onclick="location.href='{% url 'rank:ranking' %}'">ranking</button>
     {% else %}
         <button class="start-button" onclick="checkbtn(false)">start</button>
     {% endif %}
