@@ -19,21 +19,31 @@
                 <div class="status">
                     {% if game.status == 'COMPLETED' %}
                         {% if game.result == 'WIN' %}
-                            승리
+                            🎉 승리의 춤을 추세요! 🕺💃
                         {% elif game.result == 'LOSE' %}
-                            패배
+                            😅 다음엔 더 잘할 거예요!
                         {% else %}
-                            무승부
+                            🤝 비겼네요, 다음에 또 도전!
                         {% endif %}
-                    {% else %}
-                        진행중
+                    {% elif game.status == 'PENDING' %}
+                        {% if game.player1 == request.user %}
+                            ⏳ 상대방의 반격을 기다리는 중...
+                        {% else %}
+                            🎭 당신의 반격이 필요합니다!
+                        {% endif %}
                     {% endif %}
                 </div>
                 <div class="actions">
-                    <a href="#" class="btn btn-info">게임정보</a>
-                    {% if game.status == 'PENDING' and game.player1 == request.user %}
-                        <a href="{% url 'games:cancel' game.pk %}" class="btn btn-danger">취소</a> <!-- URL 이름 수정 -->
-                    {% endif %}
+                    <div class="action-buttons">
+                        {% if game.status == 'PENDING' %}
+                            {% if game.player1 == request.user %}
+                                <a href="{% url 'games:cancel' game.pk %}" class="btn btn-danger">작전 변경 (취소)</a>
+                            {% elif game.player2 == request.user %}
+                                <a href="{% url 'games:counter_attack' game.pk %}" class="btn btn-primary">반격 시작!</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <a href="#" class="btn btn-info">게임 정보 보기</a>
                 </div>
             </div>
         {% endfor %}
@@ -45,22 +55,32 @@
                 </div>
                 <div class="status">
                     {% if game.status == 'COMPLETED' %}
-                        {% if game.result == 'LOSE' %}
-                            승리
-                        {% elif game.result == 'WIN' %}
-                            패배
+                        {% if game.result == 'WIN' %}
+                            🎉 승리의 춤을 추세요! 🕺💃
+                        {% elif game.result == 'LOSE' %}
+                            😅 다음엔 더 잘할 거예요!
                         {% else %}
-                            무승부
+                            🤝 비겼네요, 다음에 또 도전!
                         {% endif %}
                     {% elif game.status == 'PENDING' %}
-                        반격 필요
+                        {% if game.player1 == request.user %}
+                            ⏳ 상대방의 반격을 기다리는 중...
+                        {% else %}
+                            🎭 당신의 반격이 필요합니다!
+                        {% endif %}
                     {% endif %}
                 </div>
                 <div class="actions">
-                    <a href="#" class="btn btn-info">게임정보</a>
-                    {% if game.status == 'PENDING' and game.player2 == request.user %}
-                        <a href="{% url 'games:counter_attack' game.pk %}" class="btn btn-primary">반격하기</a>
-                    {% endif %}
+                    <div class="action-buttons">
+                        {% if game.status == 'PENDING' %}
+                            {% if game.player1 == request.user %}
+                                <a href="{% url 'games:cancel' game.pk %}" class="btn btn-danger">작전 변경 (취소)</a>
+                            {% elif game.player2 == request.user %}
+                                <a href="{% url 'games:counter_attack' game.pk %}" class="btn btn-primary">반격 시작!</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <a href="#" class="btn btn-info">게임 정보 보기</a>
                 </div>
             </div>
         {% endfor %}

@@ -17,6 +17,6 @@ class Game(models.Model):
     player1_card = models.IntegerField(null=True)
     player2_card = models.IntegerField(null=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='PENDING')
-    result = models.CharField(max_length=10, null=True)  # WIN/LOSE/DRAW
-    win_condition = models.CharField(max_length=10, choices=WIN_CONDITION_CHOICES, default='HIGHER')  # 승리 조건
+    result = models.CharField(max_length=10, null=True)
+    win_condition = models.CharField(max_length=10, choices=WIN_CONDITION_CHOICES, default='HIGHER')
     created_at = models.DateTimeField(auto_now_add=True)
