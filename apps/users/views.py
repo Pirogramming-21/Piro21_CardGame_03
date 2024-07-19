@@ -39,8 +39,12 @@ def login(request):
         password = request.POST['password']
         user = auth.authenticate(request, username=username, password=password)
         if user is not None:
-            auth.login(request, user)
-            return redirect('users:main')
+            if user.is_superuser:
+                context = {'error': 'Superuser는 로그인할 수 없습니다.'}
+                return render(request, 'users/login.html', context=context)
+            else:
+                auth.login(request, user)
+                return redirect('users:main')
         else:
             context = {'error': '적절하지 않은 Username이나, Password입니다. 다시 입력해주세요.'}
             return render(request, 'users/login.html', context=context)

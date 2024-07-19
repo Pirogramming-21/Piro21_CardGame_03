@@ -1,5 +1,5 @@
 .game-container {
-    background-color: #f0f0f0;
+    background-color: rgba(255, 167, 35);
     border-radius: 10px;
     padding: 20px;
     width: 80%;
@@ -41,11 +41,11 @@ h2 {
     box-shadow: 0 6px 8px rgba(0,0,0,0.15);
 }
 .card.selected {
-    border-color: #4CAF50;
+    border-color: #EB5B00;
     background-color: #e8f5e9;
 }
 button {
-    background-color: #4CAF50;
+    background-color: #EB5B00;
     border: none;
     color: white;
     padding: 15px 32px;
@@ -59,5 +59,5 @@ button {
     transition: background-color 0.3s;
 }
 button:hover {
-    background-color: #45a049;
+    background-color: #9b3e05;
 }
